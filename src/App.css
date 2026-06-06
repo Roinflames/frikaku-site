@@ -219,6 +219,25 @@
 .hero-title em {
   font-style: normal;
   color: var(--orange);
+  display: inline-block;
+}
+
+.term-switch {
+  display: inline-block;
+  animation: termFade 0.5s ease forwards;
+}
+
+@keyframes termFade {
+  0% { 
+    opacity: 0; 
+    transform: translateY(10px);
+    filter: blur(4px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0);
+    filter: blur(0);
+  }
 }
 
 .hero-sub {

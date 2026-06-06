@@ -1,5 +1,8 @@
+import { useState, useEffect } from 'react'
 import heroImg from './assets/hero.png'
 import './App.css'
+
+const TERMS = ['gamer', 'otaku', 'friki']
 
 const pillars = [
   {
@@ -15,7 +18,7 @@ const pillars = [
   {
     icon: '📺',
     title: 'Contenido',
-    desc: 'Streams, clips y guías creadas por y para la comunidad gamer.',
+    desc: 'Streams, clips y guías creadas por y para la comunidad.',
   },
   {
     icon: '📚',
@@ -48,6 +51,18 @@ const steps = [
 ]
 
 function App() {
+  const [termIndex, setTermIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTermIndex((prev) => (prev + 1) % TERMS.length)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const currentTerm = TERMS[termIndex]
+  const capitalizedTerm = currentTerm.charAt(0).toUpperCase() + currentTerm.slice(1)
+
   return (
     <div className="app">
       {/* Navbar */}
@@ -68,16 +83,18 @@ function App() {
       <section className="hero">
         <div className="hero-inner">
           <div className="hero-text">
-            <span className="hero-chip">🎮 Comunidad Gamer</span>
+            <span className="hero-chip">
+              🎮 Comunidad <span key={currentTerm} className="term-switch">{capitalizedTerm}</span>
+            </span>
             <h1 className="hero-title">
               La comunidad<br />
-              <em>gamer</em><br />
+              <em key={currentTerm} className="term-switch">{currentTerm}</em><br />
               que estabas<br />
               buscando
             </h1>
             <p className="hero-sub">
-              Únete a miles de jugadores, comparte estrategias, compite y
-              diviértete. Frikaku es tu hogar gamer.
+              Únete a miles de personas, comparte estrategias, compite y
+              diviértete. Frikaku es tu hogar <span key={currentTerm} className="term-switch">{currentTerm}</span>.
             </p>
             <div className="hero-ctas">
               <a href="#unete" className="btn-primary">Únete ahora</a>
@@ -95,7 +112,7 @@ function App() {
         <div className="container">
           <div className="section-header">
             <span className="section-tag">¿Por qué Frikaku?</span>
-            <h2 className="section-title dark">Todo lo que un gamer necesita</h2>
+            <h2 className="section-title dark">Todo lo que necesitas</h2>
           </div>
           <div className="pillars-grid">
             {pillars.map((p, i) => (
@@ -156,7 +173,7 @@ function App() {
               </div>
               <div className="social-content">
                 <h3>Instagram</h3>
-                <p>Contenido, memes y noticias del mundo gamer.</p>
+                <p>Contenido, memes y noticias del mundo <span key={currentTerm} className="term-switch">{currentTerm}</span>.</p>
                 <span className="social-cta">@frikaku →</span>
               </div>
             </a>
@@ -182,7 +199,7 @@ function App() {
           <div className="footer-inner">
             <div className="footer-brand">
               <span className="logo">FRIKAKU</span>
-              <p>La comunidad gamer que estabas buscando.</p>
+              <p>La comunidad <span key={currentTerm} className="term-switch">{currentTerm}</span> que estabas buscando.</p>
             </div>
             <nav className="footer-links" aria-label="Footer navigation">
               <a href="#comunidad">Comunidad</a>
