@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import heroImg from './assets/hero.png'
 import './App.css'
 
-const TERMS = ['gamer', 'otaku', 'friki']
+const TERMS = ['otaku', 'friki', 'gamer']
 
 const pillars = [
   {
